@@ -1,0 +1,54 @@
+//
+// Prefix header for all source files of the 'ATNDEasy' target in the 'ATNDEasy' project
+//
+
+#ifdef __OBJC__
+    #import <Foundation/Foundation.h>
+    #import <UIKit/UIKit.h>
+#endif
+
+#if TARGET_IPHONE_SIMULATOR
+#import <objc/objc-runtime.h>
+#else
+#import <objc/runtime.h>
+#endif
+
+#ifdef	_DEBUG
+	#define	DNSLog(...);	NSLog(__VA_ARGS__);
+	#define DNSLogMethod	NSLog(@"[%s] %@", class_getName([self class]), NSStringFromSelector(_cmd));
+	#define DNSLogPoint(p)	NSLog(@"%f,%f", p.x, p.y);
+	#define DNSLogSize(p)	NSLog(@"%f,%f", p.width, p.height);
+	#define DNSLogRect(p)	NSLog(@"%f,%f %f,%f", p.origin.x, p.origin.y, p.size.width, p.size.height);
+
+	CFAbsoluteTime startTime;
+	#define D_START			startTime=CFAbsoluteTimeGetCurrent();
+	#define D_END			DNSLog(@"[%s] %@ %f seconds", class_getName([self class]), NSStringFromSelector(_cmd), CFAbsoluteTimeGetCurrent() - startTime );
+#else
+	#define DNSLog(...);	// NSLog(__VA_ARGS__);
+	#define DNSLogMethod	// NSLog(@"[%s] %@", class_getName([self class]), NSStringFromSelector(_cmd) );
+	#define DNSLogPoint(p)	// NSLog(@"%f,%f", p.x, p.y);
+	#define DNSLogSize(p)	// NSLog(@"%f,%f", p.width, p.height);
+	#define DNSLogRect(p)	// NSLog(@"%f,%f %f,%f", p.origin.x, p.origin.y, p.size.width, p.size.height);
+
+	#define D_START			// CFAbsoluteTime startTime=CFAbsoluteTimeGetCurrent();
+	#define D_END			// DNSLog(@"New %f seconds", CFAbsoluteTimeGetCurrent() - startTime );
+#endif
+
+#define SAFE_FREE(p) { if(p) { free(p); (p)=NULL; } }
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
+//
+// Preprocessor for ATNDEasy
+//
+////////////////////////////////////////////////////////////////////////////////////////////////////
+
+#define			TWITTER_CACHE_LIMIT_SIZE				4000000
+#define			CACHE_LIMIT_SIZE						4000000		// upper limit of image cache
+// #define		_USE_SQLITE_TWITTER_ICON							// use SQLite database for saving Twitter icon
+// #define		_USE_SQLITE_TWITTER_ICON_DATEUPDATE					// update twitter icon date in SQLite database when it is accessed. This is too slow.
+
+#ifdef _DEBUG														// for debugging Local notification
+//	#define _TEST_1_DAY
+//	#define _TEST_HALF_DAY
+//	#define _TEST_1_HOUR
+#endif
